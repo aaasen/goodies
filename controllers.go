@@ -16,5 +16,5 @@ func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data ma
 		http.Error(w, err.Error(), 500)
 	}
 
-	fmt.Fprintf(w, string(ddgResponse.Answer))
+	fmt.Fprintf(w, string(ddgResponse.GetAnswerText()))
 }

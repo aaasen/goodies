@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"regexp"
 )
 
 type DDGResponse struct {
@@ -55,4 +56,11 @@ func NewDDGResponse(response []byte) (*DDGResponse, error) {
 	}
 
 	return &m, nil
+}
+
+func (response *DDGResponse) GetAnswerText() string {
+	xmlTagRegex := regexp.MustCompile("<.*?>")
+	answerText := xmlTagRegex.ReplaceAllString(response.Answer, "")
+
+	return answerText
 }
