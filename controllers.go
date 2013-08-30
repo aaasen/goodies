@@ -5,8 +5,10 @@ import (
 	"net/http"
 )
 
-type IndexController struct{}
+type QueryController struct{}
 
-func (c IndexController) Respond(w http.ResponseWriter, r *http.Request, data map[string]string) {
-	fmt.Fprintf(w, "hey")
+func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data map[string]string) {
+	query := r.FormValue("q")
+
+	fmt.Fprintf(w, QueryDDG(query).GetAnswer())
 }
