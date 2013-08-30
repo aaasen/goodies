@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/aaasen/dingo/dingo"
+	"github.com/aaasen/dingo"
 )
 
 var routes = []*dingo.AHandler{
