@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,27 +9,10 @@ import (
 
 const DDG_URL = "http://api.duckduckgo.com/"
 
-type DDGResponse struct {
-	response string
-
-	answer string
-}
-
-func NewDDGResponse(response string) *DDGResponse {
-	return &DDGResponse{response, response}
-}
-
-func (response *DDGResponse) GetAnswer() string {
-	return response.answer
-}
-
-type DDG struct {
-	baseURL string
-}
-
-func QueryDDG(query string) *DDGResponse {
+func QueryDDG(query string) (*DDGResponse, error) {
 	queryURL := addArgToURL(DDG_URL, "q", query)
 	queryURL = addArgToURL(queryURL, "format", "json")
+	queryURL = addArgToURL(queryURL, "pretty", "1")
 	resp, err := http.Get(queryURL)
 
 	if err != nil {
@@ -44,7 +26,7 @@ func QueryDDG(query string) *DDGResponse {
 		log.Fatal(err)
 	}
 
-	return NewDDGResponse(string(body))
+	return NewDDGResponse(body)
 }
 
 func addArgToURL(baseURL string, key string, value string) string {
