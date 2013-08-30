@@ -1,3 +1,2 @@
 
-# An SMS interface for DuckDuckGo Goodies
-
+Access to DuckDuckGo Goodies via SMS
