@@ -12,18 +12,17 @@ const DDG_URL = "http://api.duckduckgo.com/"
 func QueryDDG(query string) (*DDGResponse, error) {
 	queryURL := addArgToURL(DDG_URL, "q", query)
 	queryURL = addArgToURL(queryURL, "format", "json")
-	queryURL = addArgToURL(queryURL, "pretty", "1")
 	resp, err := http.Get(queryURL)
 
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	return NewDDGResponse(body)
@@ -34,6 +33,7 @@ func addArgToURL(baseURL string, key string, value string) string {
 
 	if err != nil {
 		log.Fatal(err)
+		return ""
 	}
 
 	q := u.Query()

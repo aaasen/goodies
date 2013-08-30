@@ -56,7 +56,3 @@ func NewDDGResponse(response []byte) (*DDGResponse, error) {
 
 	return &m, nil
 }
-
-func (response *DDGResponse) GetAnswer() string {
-	return string(response.Answer)
-}

@@ -13,8 +13,8 @@ func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data ma
 	ddgResponse, err := QueryDDG(query)
 
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		http.Error(w, err.Error(), 500)
 	}
 
-	fmt.Fprintf(w, string(ddgResponse.GetAnswer()))
+	fmt.Fprintf(w, string(ddgResponse.Answer))
 }
