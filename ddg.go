@@ -12,6 +12,7 @@ const DDG_URL = "http://api.duckduckgo.com/"
 func QueryDDG(query string) (*DDGResponse, error) {
 	queryURL := addArgToURL(DDG_URL, "q", query)
 	queryURL = addArgToURL(queryURL, "format", "json")
+	queryURL = addArgToURL(queryURL, "pretty", "1")
 	resp, err := http.Get(queryURL)
 
 	if err != nil {

@@ -44,24 +44,42 @@ type RelatedTopic struct {
 
 type Icon struct {
 	URL    string
-	Height string
-	Width  string
+	Height interface{}
+	Width  interface{}
 }
 
 func NewDDGResponse(response []byte) (*DDGResponse, error) {
 	var m DDGResponse
 	err := json.Unmarshal(response, &m)
 
+	fmt.Println(string(response))
+
 	if err != nil {
-		fmt.Println(string(response))
 		fmt.Println(err)
 		return nil, err
 	}
 
+	m.Answer = m.getAnswer()
+
 	return &m, nil
 }
 
-func (response *DDGResponse) getAnswerText() string {
+// Generates a little summary of the DDG response.
+// For example, the summary of a definition would include only the definition,
+// and the summary of a calculation would include only the answer
+func (response *DDGResponse) Summarize() string {
+	fmt.Println(response)
+
+	if len(response.Definition) > 0 {
+		return response.Definition
+	} else if len(response.Answer) > 0 {
+		return response.Answer
+	} else {
+		return "=("
+	}
+}
+
+func (response *DDGResponse) getAnswer() string {
 	xmlTagRegex := regexp.MustCompile("<.*?>")
 	answerText := xmlTagRegex.ReplaceAllString(response.Answer, "")
 
