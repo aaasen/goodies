@@ -52,8 +52,6 @@ func NewDDGResponse(response []byte) (*DDGResponse, error) {
 	var m DDGResponse
 	err := json.Unmarshal(response, &m)
 
-	fmt.Println(string(response))
-
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
