@@ -5,7 +5,7 @@ import (
 )
 
 var config = dingo.Config{
-	Port:        "8080",
+	Port:        "20480",
 	TemplateDir: "/",
 	StaticDir:   "/",
 	Routes:      routes,

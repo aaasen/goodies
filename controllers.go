@@ -9,11 +9,12 @@ import (
 type QueryController struct{}
 
 func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data map[string]string) {
-	query := r.FormValue("q")
+	query := r.FormValue("Body")
 
 	ddgResponse, err := QueryDDG(query)
 
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, err.Error(), 500)
 	}
 
@@ -23,8 +24,8 @@ func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data ma
 		fmt.Println(err)
 	}
 
-	from := "+14254096187"
-	to := "+11234567890"
+	from := r.FormValue("To")
+	to := r.FormValue("From")
 	message := string(ddgResponse.GetAnswerText())
 	twilio.SendSMS(from, to, message, "", "")
 
