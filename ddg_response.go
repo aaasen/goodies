@@ -68,12 +68,12 @@ func NewDDGResponse(response []byte) (*DDGResponse, error) {
 // For example, the summary of a definition would include only the definition,
 // and the summary of a calculation would include only the answer
 func (response *DDGResponse) Summarize() string {
-	fmt.Println(response)
-
 	if len(response.Definition) > 0 {
 		return response.Definition
 	} else if len(response.Answer) > 0 {
 		return response.Answer
+	} else if len(response.Abstract) > 0 {
+		return response.Abstract
 	} else {
 		return "=("
 	}
