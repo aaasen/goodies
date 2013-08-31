@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/aaasen/gotwilio"
 	"net/http"
 )
 
@@ -17,17 +16,6 @@ func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data ma
 		fmt.Println(err)
 		http.Error(w, err.Error(), 500)
 	}
-
-	twilio, err := gotwilio.NewTwilioClientFromFile("twilio-credentials.json")
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	from := r.FormValue("To")
-	to := r.FormValue("From")
-	message := string(ddgResponse.GetAnswerText())
-	twilio.SendSMS(from, to, message, "", "")
 
 	fmt.Fprintf(w, string(ddgResponse.GetAnswerText()))
 }
