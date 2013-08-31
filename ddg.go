@@ -5,11 +5,15 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 const DDG_URL = "http://api.duckduckgo.com/"
 
 func QueryDDG(query string) (*DDGResponse, error) {
+	// DuckDuckGo is case sensitive, which is annoying for text messaging
+	query = strings.ToLower(query)
+
 	queryURL := addArgToURL(DDG_URL, "q", query)
 	queryURL = addArgToURL(queryURL, "format", "json")
 	resp, err := http.Get(queryURL)
