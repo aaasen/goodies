@@ -37,7 +37,7 @@ func addArgToURL(baseURL string, key string, value string) string {
 	}
 
 	q := u.Query()
-	q.Set(key, value)
+	q.Set(url.QueryEscape(key), url.QueryEscape(value))
 	u.RawQuery = q.Encode()
 
 	return u.String()

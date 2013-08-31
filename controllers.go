@@ -8,6 +8,8 @@ import (
 type QueryController struct{}
 
 func (c QueryController) Respond(w http.ResponseWriter, r *http.Request, data map[string]string) {
+	fmt.Println(r.URL)
+
 	query := r.FormValue("Body")
 
 	ddgResponse, err := QueryDDG(query)

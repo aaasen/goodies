@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"regexp"
 )
 
@@ -52,13 +53,15 @@ func NewDDGResponse(response []byte) (*DDGResponse, error) {
 	err := json.Unmarshal(response, &m)
 
 	if err != nil {
+		fmt.Println(string(response))
+		fmt.Println(err)
 		return nil, err
 	}
 
 	return &m, nil
 }
 
-func (response *DDGResponse) GetAnswerText() string {
+func (response *DDGResponse) getAnswerText() string {
 	xmlTagRegex := regexp.MustCompile("<.*?>")
 	answerText := xmlTagRegex.ReplaceAllString(response.Answer, "")
 

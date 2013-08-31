@@ -5,5 +5,5 @@ import (
 )
 
 var routes = []*dingo.AHandler{
-	dingo.NewHandler("POST", "/", QueryController{}),
+	dingo.NewHandler("GET", "/", QueryController{}),
 }
